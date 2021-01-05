@@ -69,6 +69,7 @@ btnHold.addEventListener('click', function () {
     document.getElementById(`score--${activePlayer}`).textContent = x;
     if (scores[activePlayer] >= 10) {
       playing = false;
+      diceEl.classList.add('hidden');
       console.log(`Player${activePlayer} win the game!🏆`);
       document
         .querySelector(`.player--${activePlayer}`)
