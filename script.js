@@ -18,30 +18,75 @@ diceEl.classList.add('hidden');
 let currentScore = 0;
 let activePlayer = 0;
 const scores = [0, 0];
+let playing = true;
+
+//test function
+const switchPlayer = () => {
+  document.getElementById(`current--${activePlayer}`).textContent = 0;
+  currentScore = 0;
+  player0El.classList.toggle('player--active');
+  player1El.classList.toggle('player--active');
+  activePlayer = activePlayer === 0 ? 1 : 0;
+};
 
 //Rolling dice functionality
 btnRoll.addEventListener('click', function () {
-  //Generation a random dice roll
-  const dice = Math.trunc(Math.random() * 6) + 1;
-  console.log(dice);
-  //Display the dice
-  diceEl.classList.remove('hidden');
-  diceEl.src = `dice-${dice}.png`;
-  //Check the dice if it is 1 or otherwise
-  if (dice != 1) {
-    //Add dice to current score
-    currentScore += dice;
-    document.getElementById(
-      `current--${activePlayer}`
-    ).textContent = currentScore;
+  if (playing) {
+    //Generation a random dice roll
+    const dice = Math.trunc(Math.random() * 6) + 1;
+    console.log(dice);
+    //Display the dice
+    diceEl.classList.remove('hidden');
+    diceEl.src = `dice-${dice}.png`;
+    //Check the dice if it is 1 or otherwise
+    if (dice != 1) {
+      //Add dice to current score
+      currentScore += dice;
+      document.getElementById(
+        `current--${activePlayer}`
+      ).textContent = currentScore;
 
-    // score0El.textContent = currentScore;
-  } else {
-    //switch the other player
+      // score0El.textContent = currentScore;
+    } else {
+      //switch the other player
+      /*
     document.getElementById(`current--${activePlayer}`).textContent = 0;
     currentScore = 0;
     player0El.classList.toggle('player--active');
     player1El.classList.toggle('player--active');
     activePlayer = activePlayer === 0 ? 1 : 0;
+    */
+      switchPlayer();
+    }
+  }
+});
+
+//btnHold area
+btnHold.addEventListener('click', function () {
+  if (playing) {
+    //console.log('sadsad');
+    let x = (scores[`${activePlayer}`] += currentScore);
+    document.getElementById(`score--${activePlayer}`).textContent = x;
+    if (scores[activePlayer] >= 10) {
+      playing = false;
+      console.log(`Player${activePlayer} win the game!🏆`);
+      document
+        .querySelector(`.player--${activePlayer}`)
+        .classList.add('player--winner');
+      document
+        .querySelector(`.player--${activePlayer}`)
+        .classList.remove('player--active');
+    } else {
+      switchPlayer();
+    }
+
+    //test switch
+    /*
+  document.getElementById(`current--${activePlayer}`).textContent = 0;
+  currentScore = 0;//bu eklenmedi bi kotrol et
+  player0El.classList.toggle('player--active');
+  player1El.classList.toggle('player--active');
+  activePlayer = activePlayer === 0 ? 1 : 0;
+  */
   }
 });
