@@ -50,7 +50,7 @@ btnRoll.addEventListener('click', function () {
     console.log(dice);
     //Display the dice
     diceEl.classList.remove('hidden');
-    diceEl.src = `dice-${dice}.png`;
+    diceEl.src = `img/dice-${dice}.png`;
     //Check the dice if it is 1 or otherwise
     if (dice != 1) {
       //Add dice to current score
